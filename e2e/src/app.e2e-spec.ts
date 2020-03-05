@@ -8,9 +8,10 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should display the home page', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('angular-swapi-example app is running!');
+    expect(page.getTextByTestId('p-home__description'))
+      .toContain('Welcome');
   });
 
   afterEach(async () => {

@@ -1,35 +1,19 @@
-import { TestBed, async } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { Spectator, createComponentFactory, byTestId } from '@ngneat/spectator';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
-  }));
+  const createComponent = createComponentFactory(AppComponent);
+  let spectator: Spectator<AppComponent>;
+
+  beforeEach(() => {
+    spectator = createComponent();
+  });
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+    expect(spectator.query(byTestId('app'))).toBeTruthy();
   });
 
-  it(`should have as title 'angular-swapi-example'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('angular-swapi-example');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('angular-swapi-example app is running!');
+  it(`should render the router'`, () => {
+    expect(spectator.query(byTestId('router'))).toBeTruthy();
   });
 });
